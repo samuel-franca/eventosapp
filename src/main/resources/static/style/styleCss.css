@@ -1,0 +1,31 @@
+/*quando escrevemos a classe e abrimos chaves, nós podemos mexer com ela dentro das chaves
+podemos mexer na magem, no tipo do texto, no tamanho do texto*/
+.detalhesEvento{
+	/*box-shadow: 0px 6px 5px grey;*/
+	margin-top: 30px;
+	padding-top: 20px;
+	padding-left: 20px;
+	/*isso dá um espaço entre os detalhes do evento e o formulário em detalhesEvento*/
+	margin-bottom: 40px;
+}
+
+.formConvidado{
+	box-shadow: 0px 0px 5px grey;
+	padding-top: 15px;
+	padding-left: 20px;
+	padding-bottom: 15px;
+	/*isso dá um espaço entre o cadastro de convidado e a tabela de convidados*/
+	margin-bottom: 60px;
+}
+
+/* isto é para diminuir o tamanho da tabela */
+/* .tabelaConvidado{ */
+/* 	width: 60%; */
+/* } */
+
+.formEvento{
+	box-shadow: 0px 0px 5px grey;
+	padding-top: 15px;
+	padding-left: 20px;
+	padding-bottom: 15px;
+}

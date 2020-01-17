@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta tags Obrigatórias -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+	<!-- para que a view possa reconhecer o style criado por mim -->
+	<!-- o objetivo ao criar o styleCss é fazer com que não fique tudo tão junto na página -->
+	<link rel="stylesheet" href="style/styleCss.css"/>
+	
+	<!-- adicionado por mim, para adicionar ícones aos botões -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<!-- para usar, basta ir ao site (https://fontawesome.com/icons?d=gallery&m=free) e procurar por ícones -->
+	<!-- se for colocar em um botão, basta adicionar <i class="fas fa-NOME_DO_ÍCONE"></i> antes ou depois do nome do botão -->
+</head>
+
+<body>
+
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Alterna navegação">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+			<!--estava dessa forma antes: <a class="navbar-brand"><b>Evento</b></a> -->
+			<!-- mas eu decidi colocar dessa forma porque mostra o nome do evento no canto da página -->
+			<a class="navbar-brand text-white"><b><span th:text="${evento.nome}"></b></span></a>
+			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+<!-- 		      <li class="nav-item active"> -->
+<!-- 		        <a class="nav-link" href="#">Home <span class="sr-only">(Página atual)</span></a> -->
+<!-- 		      </li> -->
+<!-- 		      <li class="nav-item"> -->
+<!-- 		        <a class="nav-link" href="#">Link</a> -->
+<!-- 		      </li> -->
+		   	</ul>
+		    <form class="form-inline my-2 my-lg-0">
+		      <a href="/eventos" class="btn btn-success my-2 my-sm-0"><i class="fas fa-list"></i> Lista de Eventos</a>
+		    </form>
+		  </div>
+		</nav>
+	</header>
+	
+	<div th:each="evento : ${evento}" class="container detalhesEvento">
+		<!-- para mostrar na mesma linha -->
+		<div class="row">
+			<!-- quando for acessar um objeto, utiliza-se a tag span -->
+			<div class="alert alert-primary">Local: <b><span th:text="${evento.local}"></b></span></div>
+			<div class="alert alert-primary">Data: <b><span th:text="${evento.data}"></b></span></div>
+			<div class="alert alert-primary">Horário: <b><span th:text="${evento.horario}"></b></span></div>
+		</div>
+	</div>
+		<!-- inclusão da mensagem de validação -->
+	<th:block th:include="mensagemValidacao"></th:block>
+	
+	<div class="container formConvidado">
+		<form method="post">
+			<div class="form-group">
+				<!-- estes nomes tem que ser iguais ao definidos na entidade (Convidado.java dentro de models) -->
+				Nome: <input type="text" class="form-control" placeholder="Nome do convidado" name="nomeConvidado"/>
+			</div>
+			<div class="form-group">	
+				RG: <input type="text" class="form-control" placeholder="RG do convidado" name="rg"/>
+			</div>
+			<button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Adicionar</button>
+		</form>
+	</div>
+	
+	<div class="container text-center"><h5>Lista de convidados</h5></div>
+	<table class="table table-hover container">
+		<thead class="thead-light">
+			<tr>
+				<th class="text-center">Nome do convidado</th>
+				<th class="text-center">RG</th>
+				<th class="text-center">Deletar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="convidado : ${convidados}">
+				<td class="text-center align-middle" width="60%"><span th:text="${convidado.nomeConvidado}"></span></td>
+				<td class="text-center align-middle" width="30%"><span th:text="${convidado.rg}"></span></td>
+				<td class="text-center align-middle" width="10%"><a th:href="${(#mvc.url('EC#deletarConvidado').arg(0, convidado.rg)).build()}"><i class="fas fa-trash"></i></a></td>
+			</tr>
+		</tbody>
+	</table>	
+	
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
