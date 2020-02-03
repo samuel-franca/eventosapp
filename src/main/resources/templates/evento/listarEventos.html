@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html layout:decorate = "~{layout}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+	
+	<section class="layout-content" layout:fragment = "corpo">
+	
+		<br>
+		<table class="table table-hover">
+			<thead class="thead-light">
+				<tr>
+					<th class="text-center">Nome</th>
+					<th class="text-center">Local</th>
+					<th class="text-center">Data</th>
+					<th class="text-center">Horário</th>
+					<!-- coluna criada posteriormente para deletar -->
+					<th class="text-center">Deletar</th>
+				</tr>
+			</thead>
+			<tbody>	
+				<!-- o th significa que estamos usando o thymeleaf -->
+				<tr th:each="evento : ${eventos}"> <!-- de cada evento, serão pegas as informações abaixo (nome, local, data e horario) -->
+					<!-- o evento.codigo é o que a gente vai passar para o controller -->
+					<td class="text-center align-middle" width="40%"><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.nome}"></span></td>
+					<td class="text-center align-middle" width="25%"><span th:text="${evento.local}"></span></td>
+					<td class="text-center align-middle" width="15%"><span th:text="${evento.data}"></span></td>
+					<td class="text-center align-middle" width="10%"><span th:text="${evento.horario}"></span></td>
+					<!-- coluna criada posteriormente para deletar -->
+					<!-- passamos o codigo (evento.codigo) para ser recebido em deletarEvento na classe EventoController -->
+					<td class="text-center align-middle" width="10%"><a th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}"><i class="fas fa-trash"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+</body>
+</html>

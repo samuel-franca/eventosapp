@@ -45,9 +45,9 @@ public class EventoController {
 	}
 	
 	//este método retorna a lista de eventos
-	@RequestMapping(value = {"/", "/eventos"}) //quando o cliente digitar /eventos, será enviada a requisição
+	@RequestMapping(value = {"/eventos"}) //quando o cliente digitar /eventos, será enviada a requisição
 	public ModelAndView listaEventos() {
-		ModelAndView mv = new ModelAndView("index"); //é passado para o ModelAndView a página que ele vai renderizar, que é o index.html
+		ModelAndView mv = new ModelAndView("evento/listarEventos"); //é passado para o ModelAndView a página que ele vai renderizar, que é o listarEventos.html
 		Iterable<Evento> eventos = er.findAll(); //utilizado para buscar todos os eventos no bd. Observe que utilizamos de novo o EventoRepository
 		mv.addObject("eventos", eventos); //envio da lista de eventos para a view. O nome daqui, deve ser o mesmo da view para que ele reconheça. E deve-se passar a variável que contém a lista de eventos
 		return mv;

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<!-- é importante colocar o charset como UTF-8 para que não se tenha problema com caracteres especiais -->
+<!-- e é necessário porque essas páginas são resolvidas antes de serem inseridas no layout. Ou seja, não basta ter apenas na página html na qual esse fragmento será inserido -->
+<head><meta charset="UTF-8"></head>
+<body>
+	<!-- dentro de footer, houve a criação do fragmento, cujo nome é rodape -->
+	<footer class="layoutFooter" th:fragment = "rodape">
+		<div class="container">
+			<span class="footerCopy">&copy; Criado por Samuel Henrique, baseado no curso de Michelli Brito (2017). Todos os direitos reservados.</span>
+		</div>
+	</footer>
+</body>
+</html>
