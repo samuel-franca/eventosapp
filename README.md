@@ -1,16 +1,19 @@
 # EventosApp
-#### EventosApp é uma aplicação Spring Boot simples para controle de eventos e convidados, na qual utilizou-se:
+#### EventosApp é uma aplicação Java simples para controle de eventos e convidados, na qual utilizou-se:
 
 <p align="center">
-    <img src=https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/spring-boot/spring-boot.png width="60" title="Spring MVC">
-    <img src=https://www.thymeleaf.org/images/thymeleaf.png width="60" title="Thymeleaf">
-    <img src=https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/postgresql/postgresql.png width="60" title="PostgreSQL">
-     <img src=https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/bootstrap/bootstrap.png width="60" title="Bootstrap">
+    <img src=/src/main/resources/static/image/spring_boot.png width="70" title="Spring Boot">
+    <img src=/src/main/resources/static/image/thymeleaf.png width="70" title="Thymeleaf">
+    <img src=/src/main/resources/static/image/postgresql.png width="70" title="PostgreSQL">
+    <img src=/src/main/resources/static/image/hibernate.png width="70" title="Hibernate">
+    <img src=/src/main/resources/static/image/bootstrap.png width="70" title="Bootstrap">
 </p>
 
 Mais especificamente, a aplicação permite o cadastro de eventos (com seu respectivo local, horário e data) e a criação de uma lista de convidados para cada evento.
 
-Vale ressaltar que a aplicação foi baseada no curso sobre Spring Boot de Michelli Brito.
+Para acesso a aplicação, [clique aqui](http://web-eventos.herokuapp.com/).
+
+Vale ressaltar que o desenvolvimento foi baseado no curso sobre Spring Boot de Michelli Brito.
 
 Links |
 :------------: |
