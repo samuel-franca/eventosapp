@@ -24,9 +24,9 @@
 				<!-- o th significa que estamos usando o thymeleaf -->
 				<tr th:each="evento : ${eventos}"> <!-- de cada evento, serão pegas as informações abaixo (nome, local, data e horario) -->
 					<!-- o evento.codigo é o que a gente vai passar para o controller -->
-					<td class="text-center align-middle" width="40%"><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.nome}"></span></td>
+					<td class="text-center align-middle" width="40%"><a th:href="@{/{codigo} (codigo=${evento.codigo})}"><span th:text="${evento.nome}"></span></td>
 					<td class="text-center align-middle" width="25%"><span th:text="${evento.local}"></span></td>
-					<td class="text-center align-middle" width="15%"><span th:text="${evento.data}"></span></td>
+					<td class="text-center align-middle" width="15%"><span th:text="${#temporals.format(evento.data, 'dd/MM/yyyy')}"></span></td>
 					<td class="text-center align-middle" width="10%"><span th:text="${evento.horario}"></span></td>
 					<!-- coluna criada posteriormente para deletar -->
 					<!-- passamos o codigo (evento.codigo) para ser recebido em deletarEvento na classe EventoController -->

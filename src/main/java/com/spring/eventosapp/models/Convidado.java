@@ -4,17 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="tb_convidado")
 public class Convidado {
 	
 	@Id
-	@NotEmpty //para indicar que não pode ser vazio
+	@NotBlank(message = "Obrigatório.") //para indicar que não pode ser deixado em branco
 	private String rg;
 	
-	@NotEmpty
+	@NotBlank(message = "Obrigatório.")
 	private String nomeConvidado;
 	
 	@ManyToOne //muitos convidados para um só evento

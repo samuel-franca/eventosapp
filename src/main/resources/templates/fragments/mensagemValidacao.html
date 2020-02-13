@@ -1,15 +1,27 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-
-</head>
-
-<body>	
-<div class="alert alert-warning alert-dismissible" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
+<!-- não foi adicionado o th:fragment nos divs porque a própria página alert.html será usada como um fragmento -->
+	<!-- th:if faz o teste na variável success para verificar se é diferente de null -->
+	<!-- se for diferente de null, significa que temos uma mensagem armazenada na variável e esse primeiro div é adicionado como um fragmento na página -->
+	<div th:if="${success} != null">
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+		  <i class="fas fa-check"></i>
+		  <span>
+		  	<!-- a tag strong é como se fosse um negrito dentro da página. o th:text vai exibir o conteúdo da variável success -->
+		  	<strong th:text="${success}"></strong> 
+		  </span>
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+	</div>
 	
-	<span th:text="${mensagem}"></span>
-	
-</div>
-</body>						
-</html>
+	<div th:if="${fail} != null">
+		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		  <i class="fas fa-check"></i>
+		  <span>
+		  	<strong th:text="${fail}"></strong>
+		  </span>
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+	</div>

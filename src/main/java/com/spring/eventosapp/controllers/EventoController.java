@@ -5,7 +5,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,26 +28,25 @@ public class EventoController {
 	private ConvidadoRepository cr;
 	
 	//essa função permite que a página seja mostrada ao usuário quando ele entra em /cadastrarEvento
-	@RequestMapping(value="/cadastrarEvento", method=RequestMethod.GET) //é um GET, porque ele retorna um formulário
-	public String form() { //vai retornar o formulário de cadastro do evento
+	@GetMapping("/cadastrarEvento") //é um GET, porque ele retorna um formulário
+	public String form(Evento evento) { //vai retornar o formulário de cadastro do evento
 		return "evento/cadastrarEvento"; //não precisa indicar que é html, basta o nome dele		
 	}
 	
 	//este método define o que deve ser feito ao clicar em Salvar no botão definindo no HTML
-	@RequestMapping(value="/cadastrarEvento", method=RequestMethod.POST) //é um POST, porque ele salva no bd
+	@PostMapping(value="/cadastrarEvento") //é um POST, porque ele salva no bd
 	public String form(@Valid Evento evento, BindingResult result, RedirectAttributes attributes) { //retorna o formulário de cadastro do evento
 		if(result.hasErrors()) {
-			attributes.addFlashAttribute("mensagem", "Verifique os campos!");
-			return "redirect:/cadastrarEvento";			
+			return "evento/cadastrarEvento";
 		}
 		
 		er.save(evento); //isto é para salvar (persistir) esse evento no bd
-		attributes.addFlashAttribute("mensagem", "Evento cadastrado com sucesso!");
-		return "redirect:/cadastrarEvento"; //não precisa indicar que é html, basta o nome dele
+		attributes.addFlashAttribute("success", "Evento cadastrado com sucesso!");
+		return "redirect:/cadastrarEvento";
 	}
 	
 	//este método retorna a lista de eventos
-	@RequestMapping(value = {"/eventos"}) //quando o cliente digitar /eventos, será enviada a requisição
+	@GetMapping({"/eventos"}) //quando o cliente digitar /eventos, será enviada a requisição
 	public ModelAndView listaEventos() {
 		ModelAndView mv = new ModelAndView("evento/listarEventos"); //é passado para o ModelAndView a página que ele vai renderizar, que é o listarEventos.html
 		Iterable<Evento> eventos = er.findAll(); //utilizado para buscar todos os eventos no bd. Observe que utilizamos de novo o EventoRepository
@@ -53,7 +54,7 @@ public class EventoController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/{codigo}", method=RequestMethod.GET)
+	@GetMapping("/{codigo}")
 	public ModelAndView detalhesEvento(@PathVariable("codigo") long codigo) {
 		ModelAndView mv = new ModelAndView("evento/detalhesEvento"); //detalhesEvento é a página HTML
 		Evento evento = er.findByCodigo(codigo); //para utilizar o findByCodigo, precisa-se defini-lo no EventoRepository
@@ -68,7 +69,7 @@ public class EventoController {
 	}
 	
 	//método criado deletar um evento
-	@RequestMapping("/deletarEvento")
+	@GetMapping("/deletarEvento")
 	public String deletarEvento(long codigo) {
 		Evento evento = er.findByCodigo(codigo); //buscamos o evento no bd
 		er.delete(evento); //e o deletamos
@@ -76,7 +77,7 @@ public class EventoController {
 		return "redirect:/eventos"; //vai retornar para a lista de eventos
 	}
 	
-	@RequestMapping(value="/{codigo}", method=RequestMethod.POST)
+	@PostMapping("/{codigo}")
 	//@Valid, BindingResult result e RedirectAttributes attributes foram adicionados depois
 	//eles são utilizados para fazer a validação
 	public String detalhesEventoPost(@PathVariable("codigo") long codigo, @Valid Convidado convidado, BindingResult result, RedirectAttributes attributes) { //@Valid vai validar o convidado
@@ -84,18 +85,18 @@ public class EventoController {
 		if(result.hasErrors()) {
 			//para que essa mensagem seja mostrada na view, é necessário criar um fragmento no formulário
 			//criou-se então uma nova view, mensagemValidacao
-			attributes.addFlashAttribute("mensagem", "Verifique os campos!");
+			attributes.addFlashAttribute("fail", "Verifique os campos!");
 			return "redirect:/{codigo}";
 		}
 		
 		Evento evento = er.findByCodigo(codigo); //busca do evento que está relacionado ao código
 		convidado.setEvento(evento);
 		cr.save(convidado);
-		attributes.addFlashAttribute("mensagem", "Convidado adicionado com sucesso!");
+		attributes.addFlashAttribute("success", "Convidado adicionado com sucesso!");
 		return "redirect:/{codigo}";
 	}
 	
-	@RequestMapping("/deletarConvidado")
+	@GetMapping("/deletarConvidado")
 	public String deletarConvidado(String rg) {
 		Convidado convidado = cr.findByRg(rg);
 		cr.delete(convidado);

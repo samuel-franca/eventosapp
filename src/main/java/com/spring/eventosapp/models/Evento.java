@@ -1,15 +1,20 @@
 package com.spring.eventosapp.models;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Table(name="tb_evento")
@@ -19,13 +24,19 @@ public class Evento {
 	@GeneratedValue(strategy=GenerationType.AUTO) //para gerar o Id automaticamente
 	private long codigo; //toda entidade tem que ter um Id
 	
-	@NotEmpty
+	@NotBlank(message = "Obrigatório.")
 	private String nome;
-	@NotEmpty
+	
+	@NotBlank(message = "Obrigatório.")
 	private String local;
-	@NotEmpty
-	private String data;
-	@NotEmpty
+	
+	@NotNull(message = "Obrigatório.")
+	//columnDefinition serve para definir o tipo de dado que teremos no BD
+	@Column(columnDefinition = "DATE")
+	@DateTimeFormat(iso = ISO.DATE)
+	private LocalDate data;
+	
+	@NotBlank(message = "Obrigatório.")
 	private String horario;
 
 	//quando iríamos deletar um evento que tinha convidados, dava erro
@@ -53,10 +64,10 @@ public class Evento {
 	public void setLocal(String local) {
 		this.local = local;
 	}
-	public String getData() {
+	public LocalDate getData() {
 		return data;
 	}
-	public void setData(String data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 	public String getHorario() {

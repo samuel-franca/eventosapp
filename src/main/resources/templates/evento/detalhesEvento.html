@@ -14,7 +14,7 @@
 				<!-- quando for acessar um objeto, utiliza-se a tag span -->
 				<div class="alert alert-primary">Nome: <b><span th:text="${evento.nome}"></b></span></div>
 				<div class="alert alert-primary">Local: <b><span th:text="${evento.local}"></b></span></div>
-				<div class="alert alert-primary">Data: <b><span th:text="${evento.data}"></b></span></div>
+				<div class="alert alert-primary">Data: <b><span th:text="${#temporals.format(evento.data, 'dd/MM/yyyy')}"></b></span></div>
 				<div class="alert alert-primary">Horário: <b><span th:text="${evento.horario}"></b></span></div>
 			</div>
 		</div>
@@ -22,13 +22,12 @@
 		<th:block th:include="fragments/mensagemValidacao"></th:block>
 		
 		<div class="container formConvidado">
-			<form method="post">
+			<form th:object="${convidado}" method="POST">
 				<div class="form-group">
-					<!-- estes nomes tem que ser iguais ao definidos na entidade (Convidado.java dentro de models) -->
-					Nome: <input type="text" class="form-control" placeholder="Nome do convidado" name="nomeConvidado"/>
+					Nome: <input type="text" class="form-control" id="nomeConvidado" placeholder="Nome do convidado" name="nomeConvidado"/>
 				</div>
 				<div class="form-group">	
-					RG: <input type="text" class="form-control" placeholder="RG do convidado" name="rg"/>
+					RG: <input type="text" class="form-control" id="rg" placeholder="RG do convidado" name="rg"/>
 				</div>
 				<button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Adicionar</button>
 			</form>

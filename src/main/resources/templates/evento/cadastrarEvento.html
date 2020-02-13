@@ -7,27 +7,49 @@
 <body>
 	
 	<section class="layout-content" layout:fragment = "corpo">
-	
-		<th:block th:include="fragments/mensagemValidacao"></th:block>
+
+		<div th:replace="fragments/mensagemValidacao"></div>
 		
 		<br>
 		<div class="container formEvento">
-			<form method="post" class="container"> <!--agora vamos criar todas as tags input-->
+			<form th:object="${evento}" method="POST" class="container"> <!--agora vamos criar todas as tags input-->
 				<div class="form-group">
-					Nome: <input type="text" class="form-control" placeholder="Nome do evento" name="nome"/>
+					Nome:
+					<input type="text" class="form-control" id="nome" placeholder="Nome do evento"
+						   autofocus="autofocus" th:field="*{nome}"
+						   th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'"/>
+                    <div class="invalid-feedback">
+                    	<!-- quando o campo nome não passar na validação, então a mensagem vai ser exibida embaixo do input -->
+                    	<span th:errors="*{nome}"></span>	
+                    </div>
 				</div>
 				
 				<div class="form-row">
 					<div class="form-group col-md-7">	
-						Local: <input type="text" class="form-control" placeholder="Local do evento" name="local"/>
+						Local:
+						<input type="text" class="form-control" id="local" placeholder="Local do evento" th:field="*{local}"
+							   th:classappend="${#fields.hasErrors('local')} ? 'is-invalid'"/>
+	                    <div class="invalid-feedback">
+	                    	<span th:errors="*{local}"></span>	
+	                    </div>
 					</div>
 					
 					<div class="form-group col-md-3">
-						Data: <input type="date" class="form-control" name="data"/>
+						Data:
+						<input type="date" class="form-control" id="data" th:field="*{data}"
+							   th:classappend="${#fields.hasErrors('data')} ? 'is-invalid'"/>
+	                    <div class="invalid-feedback">
+	                    	<span th:errors="*{data}"></span>	
+	                    </div>
 					</div>
 						
 					<div class="form-group col-md-2">
-						Horário: <input type="time" class="form-control" placeholder="Horário do evento" name="horario"/>
+						Horário:
+						<input type="time" class="form-control" id="horario" placeholder="Horário do evento" th:field="*{horario}"
+							   th:classappend="${#fields.hasErrors('horario')} ? 'is-invalid'"/>
+						<div class="invalid-feedback">
+	                    	<span th:errors="*{horario}"></span>	
+	                    </div>  
 					</div>
 				</div>
 				
